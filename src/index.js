@@ -4,9 +4,26 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import logger from './Redux/logger';
+
+import { createStore, applyMiddleware } from "redux";
+import reducer from './Redux/reducer';
+import {Provider} from 'react-redux';
+
+const store = createStore(reducer, applyMiddleware(logger));
+
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "DECREMENT" });
+store.dispatch({ type: "RESET" });
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+ 
+    <Provider store={store}>
+      <App />
+  </Provider> 
+
   </React.StrictMode>,
   document.getElementById('root')
 );
